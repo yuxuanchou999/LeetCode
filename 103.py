@@ -12,20 +12,23 @@ class Solution:
         :rtype: List[List[int]]
         """
         if not root: return []
-        i, new, cur, res = 0, [], [root], [[root.val]]
+        res, cur, level = [], [root], 1
         while cur:
-            x = cur.pop()
-            if not i % 2:
-                if x.right: new.append(x.right)
-                if x.left: new.append(x.left)
+            next_level, vals = [], []
+            for node in cur:
+                vals.append(node.val)
+                if node.left:
+                    next_level.append(node.left)
+                if node.right:
+                    next_level.append(node.right)
+            cur = next_level
+            if level % 2:
+                res.append(vals)
             else:
-                if x.left: new.append(x.left)
-                if x.right: new.append(x.right)
-            if not cur and new:
-                res.append([node.val for node in new])
-                cur = new
-                new = []
-                i += 1
-                
+                res.append(vals[::-1])
+            level += 1
         return res
+                    
+            
+        
                 
