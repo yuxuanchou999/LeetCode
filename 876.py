@@ -10,15 +10,10 @@ class Solution:
         :type head: ListNode
         :rtype: ListNode
         """
-        cnt, node = 1, head
-        while head.next:
-            cnt += 1
-            head = head.next
-        
-        cnt //= 2
-        while cnt > 0:
-            cnt -= 1
-            node = node.next
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
             
-        return node
+        return slow
             
